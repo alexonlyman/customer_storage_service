@@ -1,7 +1,15 @@
-CREATE TABLE currency
+CREATE TABLE IF NOT EXISTS clients
 (
-    currency_code        VARCHAR(3) PRIMARY KEY,
-    currency_description VARCHAR(255),
-    date_time            TIMESTAMP,
-    rates               DECIMAL(10, 2)
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS contacts
+(
+    id        SERIAL PRIMARY KEY,
+    client_id INT NOT NULL,
+    name      VARCHAR(255),
+    phone_number  VARCHAR(20),
+    email_address VARCHAR(255),
+    CONSTRAINT fk_client FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE
+)
